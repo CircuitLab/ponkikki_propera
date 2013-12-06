@@ -3,11 +3,15 @@
 2. 強い息が吹かれたらudpでOSCメッセージを飛ばす
 3. raspberryPI製のサーバーがメッセージを受け、GPIOに出力
 
+# 工事中！
+- webrtcを用いてブラウザオンリーで息を検知しクラウドサーバーに送りraspberryPIにの実装がどこかに行ってしまったため現在puredataなど用いて音を検知する実装
+- ソースコードが見つかり次第そちらをマスターとして公開したいと思っています
+  - webrtcで音声のスレッショルドを検出する機能のテストコードがあったのでいったん追加
+
 ## Dependency
 - Client side
   - MacOS
     - pd-extended
-    
 
 - Server side
   - RaspberryPI

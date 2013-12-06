@@ -1,0 +1,56 @@
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/blitzer/jquery-ui.css" rel="stylesheet" type="text/css"/><!-- jquery UI のcss-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script><!-- jquery　本体-->
+<script type="text/javascript"  src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"></script><!-- jquery-UI　本体-->
+
+<video id="myVideo" width="400" height="300" autoplay></video>
+<button>get</button>
+<div class="aaa"></div>
+<script type="text/javascript">
+  console.log("start");
+  var video = document.getElementById('myVideo');
+  navigator.getMedia = ( navigator.getUserMedia ||
+                          navigator.webkitGetUserMedia ||
+                          navigator.mozGetUserMedia ||
+                          navigator.msGetUserMedia );
+
+  navigator.getMedia({audio:true, video:true}, success, error);
+
+  function success(stream) {
+    var context = new webkitAudioContext();
+    var source = context.createMediaStreamSource(stream);
+    var audioAnalyser = context.createAnalyser();
+    var audioAnalyzedData = new Uint8Array(audioAnalyser.frequencyBinCount);
+
+    source.connect(audioAnalyser);
+    //source.connect(context.destination);
+
+    data = audioAnalyser.getByteFrequencyData(audioAnalyzedData);
+    console.log(audioAnalyzedData[500]);
+
+    // ためし
+    $("button").bind("click",function(){
+      audioAnalyser.getByteFrequencyData(audioAnalyzedData);
+      console.log(audioAnalyzedData);   
+      // alert(audioAnalyzedData[500]);
+      $(".aaa").text(audioAnalyzedData[500]); 
+      start();
+    });
+
+    setInterval(function(){
+      audioAnalyser.getByteFrequencyData(audioAnalyzedData);
+      if (audioAnalyzedData[100] > 120){
+        $(".aaa").text("ふいてる");
+        console.log("ふいてる");    
+      };
+    },100);
+
+    // video.src = window.webkitURL.createObjectURL(stream);
+    
+  }
+  
+  function error(err) {
+    console.log(err);
+  }
+
+
+</script>
