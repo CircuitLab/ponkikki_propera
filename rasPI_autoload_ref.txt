@@ -1,0 +1,14 @@
+こういう記述のあとに
+# Print the IP address
+_IP=$(hostname -I) || true
+if [ "$_IP" ]; then
+  printf "My IP address is %s\n" "$_IP"
+fi
+
+
+こういうのなどを書く
+/home/pi/.rvm/bin/ruby-1.9.3-p448@ponkikki /home/pi/ponkikki.rb &
+
+
+exit 0
+
